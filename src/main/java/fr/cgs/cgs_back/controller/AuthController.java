@@ -17,13 +17,9 @@ public class AuthController {
     private UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody UserDto userDto){
-        userService.findByEmailAndPassword(userDto.getEmail(), userDto.getPassword());
-        return ResponseEntity.status(HttpStatusCode.valueOf(201)).build();
+    public ResponseEntity<User> login(@RequestBody UserDto userDto) {
+        User user = userService.findByEmailAndPassword(userDto.getEmail(), userDto.getPassword());
+        return ResponseEntity.ok(user);
     }
 
-    @GetMapping("/bite")
-    public List<User> bite(){
-        return userService.findAll();
-    }
 }
