@@ -1,28 +1,25 @@
-package fr.cgs.cgs_back.entities;
+package fr.cgs.cgs_back.entity;
 
 import jakarta.persistence.*;
 
 import java.util.Date;
 
 @Entity
-@Table(name = "promotion")
-public class Promotion {
+@Table(name = "reservation")
+public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "promotion_id")
+    @Column(name = "reservation_id")
     private int id;
 
-    @Column(name = "promotion_name")
+    @Column(name = "reservation_name")
     private String name;
 
-    @Column(name = "promotion_volume")
-    private int volume;
-
-    @Column(name = "promotion_startedat")
+    @Column(name = "reservation_startedat")
     private Date startedAt;
 
-    @Column(name = "promotion_endedat")
+    @Column(name = "reservation_endedat")
     private Date endedAt;
 
     @ManyToOne
@@ -32,4 +29,7 @@ public class Promotion {
     @ManyToOne
     @JoinColumn(name = "user_id", updatable = false, insertable = false)
     private User user;
+
+    @Column(name = "reservation_type")
+    private int type;
 }

@@ -1,4 +1,4 @@
-package fr.cgs.cgs_back.entities;
+package fr.cgs.cgs_back.entity;
 
 import jakarta.persistence.*;
 
