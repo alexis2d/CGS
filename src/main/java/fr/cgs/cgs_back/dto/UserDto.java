@@ -1,5 +1,7 @@
 package fr.cgs.cgs_back.dto;
 
+import fr.cgs.cgs_back.entity.User;
+
 public class UserDto {
 
     private int id;
@@ -19,4 +21,43 @@ public class UserDto {
         this.lastname = lastname;
         this.role = role;
     }
+
+    public UserDto(User user) {
+        this.id = user.getId();
+        this.nickname = user.getNickname();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.firstname = user.getFirstname();
+        this.lastname = user.getLastname();
+        this.role = user.getRole();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
 }

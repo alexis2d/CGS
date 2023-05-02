@@ -28,4 +28,33 @@ public class User {
 
     @Column(name = "user_role")
     private int role;
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
 }
