@@ -4,7 +4,6 @@ import fr.cgs.cgs_back.dto.UserDto;
 import fr.cgs.cgs_back.entity.User;
 import fr.cgs.cgs_back.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
