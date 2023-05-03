@@ -6,6 +6,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,12 +15,19 @@ public class ReservationService {
     private ReservationRepository reservationRepository;
 
 
-
     public Reservation findById(int id){
         Optional<Reservation> optionnalReservation = reservationRepository.findById(id);
         return optionnalReservation.orElseThrow(()->new EntityNotFoundException("Reservation not found with id " + id));
     }
 
+    public List<Reservation> getAllReservation() {
+        return reservationRepository.findAll();
+    }
 
+    public Reservation saveReservation(Reservation reservation){
+        return reservationRepository.save(reservation);
+    }
+
+    public void deleteReservation(int id){reservationRepository.deleteById(id);}
 
 }
