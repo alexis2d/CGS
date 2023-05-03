@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/sites")
+@CrossOrigin(origins = "http://localhost:3000")
 public class SiteController {
 
     @Autowired
