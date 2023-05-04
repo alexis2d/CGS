@@ -1,6 +1,8 @@
 package fr.cgs.cgs_back.controller;
 
+import fr.cgs.cgs_back.entity.Classroom;
 import fr.cgs.cgs_back.entity.Site;
+import fr.cgs.cgs_back.service.ClassroomService;
 import fr.cgs.cgs_back.service.SiteService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ public class SiteController {
 
     @Autowired
     private SiteService siteService;
+    @Autowired
+    private ClassroomService classroomService;
 
     @GetMapping
     public List<Site> getAllSites() {
@@ -29,6 +33,10 @@ public class SiteController {
         return siteService.getSiteById(id);
     }
 
+    @GetMapping("/{id}/classrooms")
+    public List<Classroom> findAllBySiteId(@PathVariable int id) {
+        return classroomService.findAllBySiteId(id);
+    }
 
     @PostMapping("/add")
     public ResponseEntity<Site> createSite(@RequestBody Site site) {

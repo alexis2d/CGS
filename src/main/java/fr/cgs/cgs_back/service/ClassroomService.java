@@ -19,6 +19,10 @@ public class ClassroomService {
         return optionalClassroom.orElseThrow(()->new EntityNotFoundException("Classroom not found with id " + id));
     }
 
+    public List<Classroom> findAllBySiteId(int id){
+        return classroomRepository.findAllBySiteId(id);
+    }
+
     public void deleteClassroom(int id) {
         classroomRepository.deleteById(id);
     }
