@@ -22,9 +22,31 @@ public class Reservation {
     @Column(name = "reservation_endedat")
     private Date endedAt;
 
+    @Column(name = "classroom_id")
+    private int classroom_id;
+
     @ManyToOne
     @JoinColumn(name = "classroom_id", updatable = false, insertable = false)
     private Classroom classroom;
+
+    public void setClassroom_id(int classroom_id) {
+        this.classroom_id = classroom_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public int getClassroom_id() {
+        return classroom_id;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    @Column(name = "user_id")
+    private int user_id;
 
     @ManyToOne
     @JoinColumn(name = "user_id", updatable = false, insertable = false)

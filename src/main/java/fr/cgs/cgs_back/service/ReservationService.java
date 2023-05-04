@@ -24,10 +24,22 @@ public class ReservationService {
         return reservationRepository.findAll();
     }
 
+    public Iterable<Reservation> getProductsByName(String name) {
+        return reservationRepository.findByName(name);
+    }
+
     public Reservation saveReservation(Reservation reservation){
         return reservationRepository.save(reservation);
     }
 
     public void deleteReservation(int id){reservationRepository.deleteById(id);}
+
+    public List<Reservation> findReservationByUserId(int userId){
+        return reservationRepository.findByUserId(userId);
+    }
+
+    public List<Reservation> findReservationByClassroomId(int classroomId){
+        return reservationRepository.findByClassroomId(classroomId);
+    }
 
 }

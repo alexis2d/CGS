@@ -10,9 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/reservation")
+@CrossOrigin(origins = "http://localhost:3000")
 public class ReservationController {
 
     @Autowired
@@ -28,7 +30,17 @@ public class ReservationController {
         return reservationService.findById(id);
     }
 
-    @GetMapping("/add")
+    @GetMapping("/user/{userId}")
+    public List<Reservation> getReservationByUserId(@PathVariable int userId){
+        return reservationService.findReservationByUserId(userId);
+    }
+
+    @GetMapping("/classroom/{classroomId}")
+    public List<Reservation> getReservationByClassroomId(@PathVariable int classroomId){
+        return reservationService.findReservationByClassroomId(classroomId);
+    }
+
+    @PostMapping("/add")
     public ResponseEntity<Reservation> createReservation(@RequestBody Reservation reservation){
         Reservation saveReservation = reservationService.saveReservation(reservation);
         return ResponseEntity.ok(saveReservation);
@@ -42,8 +54,8 @@ public class ReservationController {
             reservation.setType(updateReservation.getType());
             reservation.setStartedAt(updateReservation.getStartedAt());
             reservation.setEndedAt(updateReservation.getEndedAt());
-            reservation.setClassroom(updateReservation.getClassroom());
-            reservation.setUser(updateReservation.getUser());
+            reservation.setClassroom_id(updateReservation.getClassroom_id());
+            reservation.setUser_id(updateReservation.getUser_id());
 
             Reservation savedReservation = reservationService.saveReservation(reservation);
             return ResponseEntity.ok(savedReservation);
@@ -51,6 +63,8 @@ public class ReservationController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
+
 
     @DeleteMapping("/{id}/delete")
     public void deleteReservation(@PathVariable int id) {
