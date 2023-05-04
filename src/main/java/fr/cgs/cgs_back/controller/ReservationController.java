@@ -53,8 +53,8 @@ public class ReservationController {
             reservation.setType(updateReservation.getType());
             reservation.setStartedAt(updateReservation.getStartedAt());
             reservation.setEndedAt(updateReservation.getEndedAt());
-            reservation.setClassroom(updateReservation.getClassroom());
-            reservation.setUser(updateReservation.getUser());
+            reservation.setClassroom_id(updateReservation.getClassroom_id());
+            reservation.setUser_id(updateReservation.getUser_id());
 
             Reservation savedReservation = reservationService.saveReservation(reservation);
             return ResponseEntity.ok(savedReservation);
