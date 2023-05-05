@@ -40,13 +40,13 @@ public class ReservationController {
         return reservationService.findReservationByClassroomId(classroomId);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/")
     public ResponseEntity<Reservation> createReservation(@RequestBody Reservation reservation){
         Reservation saveReservation = reservationService.saveReservation(reservation);
         return ResponseEntity.ok(saveReservation);
     }
 
-    @PutMapping("/{id}/update")
+    @PutMapping("/{id}")
     public ResponseEntity<Reservation> updateReservation(@PathVariable int id, @RequestBody Reservation updateReservation) {
         try {
             Reservation reservation = reservationService.findById(id);
@@ -66,7 +66,7 @@ public class ReservationController {
 
 
 
-    @DeleteMapping("/{id}/delete")
+    @DeleteMapping("/{id}")
     public void deleteReservation(@PathVariable int id) {
         reservationService.deleteReservation(id);
     }
