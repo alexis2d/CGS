@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/classroom")
+@CrossOrigin(origins = "http://localhost:3000")
 public class ClassroomController {
 
     @Autowired
@@ -35,7 +36,7 @@ public class ClassroomController {
         return ResponseEntity.ok(newClassroom);
     }
 
-    @PutMapping("/{id}/update")
+    @PutMapping("/{id}")
     public ResponseEntity<Classroom> updateClassroom(@PathVariable int id, @RequestBody Classroom updatedClassroom) {
         try{
             Classroom classroom = classroomService.findById(id);
@@ -49,7 +50,7 @@ public class ClassroomController {
         }
     }
 
-    @DeleteMapping("/{id}/delete")
+    @DeleteMapping("/{id}")
     public void deleteClassroom(@PathVariable int id) {
         classroomService.deleteClassroom(id);
     }
