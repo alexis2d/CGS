@@ -45,7 +45,7 @@ public class SiteController {
     }
 
 
-    @PutMapping("/{id}/update")
+    @PutMapping("/{id}")
     public ResponseEntity<Site> updateSite(@PathVariable int id,@RequestBody Site updatedSite) {
         try{
             Site site = siteService.getSiteById(id);
@@ -61,7 +61,7 @@ public class SiteController {
     }
 
 
-    @DeleteMapping("/{id}/delete")
+    @DeleteMapping("/{id}")
     public void deleteSite(@PathVariable int id) {
         siteService.deleteSite(id);
     }

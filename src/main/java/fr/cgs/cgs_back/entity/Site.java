@@ -23,6 +23,10 @@ public class Site {
     @Column(name = "site_description")
     private String description;
 
+
+    public Site() {
+    }
+
     public int getId() {
         return id;
     }
