@@ -20,5 +20,4 @@ public class AuthController {
         User user = userService.findByEmailAndPassword(userDto.getEmail(), userDto.getPassword());
         return ResponseEntity.ok(user);
     }
-
 }

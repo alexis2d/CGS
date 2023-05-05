@@ -10,15 +10,16 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/promotion")
+@CrossOrigin(origins = "http://localhost:3000")
 public class PromotionController {
 
     @Autowired
     private PromotionService promotionService;
 
     @GetMapping("/{id}")
-    public Promotion findById(int id) { return promotionService.findById(id); }
+    public Promotion getPromotionById(@PathVariable int id) { return promotionService.getPromotionById(id); }
 
-    @GetMapping("/list")
+    @GetMapping
     public List<Promotion> list() { return promotionService.findAll(); }
 
     @PostMapping("/add")
@@ -27,9 +28,9 @@ public class PromotionController {
         return ResponseEntity.ok(newPromotion);
     }
 
-    @PutMapping("/{id}/update")
+    @PutMapping("/{id}")
     public ResponseEntity<Promotion> updatePromotion(@PathVariable int id, @RequestBody Promotion updatedPromotion) {
-        Promotion promotion = promotionService.findById(id);
+        Promotion promotion = promotionService.getPromotionById(id);
         promotion.setName(updatedPromotion.getName());
         promotion.setStartedAt(updatedPromotion.getStartedAt());
         promotion.setClassroom(updatedPromotion.getClassroom());
@@ -37,7 +38,7 @@ public class PromotionController {
         return ResponseEntity.ok(savedPromotion);
     }
 
-    @DeleteMapping("/{id}/delete")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deletePromotion(@PathVariable int id) {
         promotionService.deletePromotion(id);
         return ResponseEntity.ok().build();
