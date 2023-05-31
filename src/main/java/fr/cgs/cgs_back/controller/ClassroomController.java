@@ -3,7 +3,10 @@ package fr.cgs.cgs_back.controller;
 import com.electronwill.nightconfig.core.conversion.Path;
 import fr.cgs.cgs_back.dto.ClassroomDto;
 import fr.cgs.cgs_back.entity.Classroom;
+import fr.cgs.cgs_back.entity.Site;
+import fr.cgs.cgs_back.mapper.MapStructMapper;
 import fr.cgs.cgs_back.service.ClassroomService;
+import fr.cgs.cgs_back.service.SiteService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +22,10 @@ public class ClassroomController {
 
     @Autowired
     private ClassroomService classroomService;
+    @Autowired
+    private MapStructMapper mapper;
+    @Autowired
+    private SiteService siteService;
 
     @GetMapping("/{id}")
     public Classroom findById(@PathVariable int id) {
@@ -30,20 +37,29 @@ public class ClassroomController {
         return classroomService.findAll();
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Classroom> insertClassroom(@RequestBody Classroom classroom) {
-        Classroom newClassroom = classroomService.insertClassroom(classroom);
-        return ResponseEntity.ok(newClassroom);
+    @PostMapping("{siteId}/add")
+    public ResponseEntity<Void> insertClassroom(@PathVariable int siteId, @RequestBody ClassroomDto classroomDto) {
+        Site site = siteService.getSiteById(siteId);
+        classroomDto.setSite(site);
+        classroomService.insertClassroom(mapper.classroomDtoToClassroom(classroomDto));
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Classroom> updateClassroom(@PathVariable int id, @RequestBody Classroom updatedClassroom) {
+    public ResponseEntity<Classroom> updateClassroom(@PathVariable int id, @RequestBody ClassroomDto updatedClassroom) {
         try{
             Classroom classroom = classroomService.findById(id);
-            classroom.setName(updatedClassroom.getName());
-            classroom.setCapacity(updatedClassroom.getCapacity());
-            classroom.setSite(updatedClassroom.getSite());
-            Classroom savedClassroom = classroomService.insertClassroom(classroom);
+
+            ClassroomDto newClassroom = mapper.classroomToClassroomDto(classroom);
+
+            newClassroom.setName(updatedClassroom.getName());
+            newClassroom.setCapacity(updatedClassroom.getCapacity());
+
+            Classroom mappedClassroom = mapper.classroomDtoToClassroom(newClassroom);
+
+            mappedClassroom.setId(id);
+
+            Classroom savedClassroom = classroomService.insertClassroom(mappedClassroom);
             return ResponseEntity.ok(savedClassroom);
         } catch(EntityNotFoundException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

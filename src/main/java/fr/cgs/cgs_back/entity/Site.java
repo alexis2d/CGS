@@ -1,11 +1,12 @@
 package fr.cgs.cgs_back.entity;
 
 import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
 @Table(name = "site")
 public class Site {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "site_id")
@@ -22,10 +23,6 @@ public class Site {
 
     @Column(name = "site_description")
     private String description;
-
-
-    public Site() {
-    }
 
     public int getId() {
         return id;

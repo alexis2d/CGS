@@ -1,8 +1,10 @@
 package fr.cgs.cgs_back.entity;
 
 import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
 @Table(name = "classroom")
 public class Classroom {
 
@@ -62,5 +64,6 @@ public class Classroom {
 
     public void setSite(Site site) {
         this.site = site;
+        this.site_id = site.getId();
     }
 }

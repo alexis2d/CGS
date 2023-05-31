@@ -1,13 +1,16 @@
 package fr.cgs.cgs_back.service;
 
+import fr.cgs.cgs_back.entity.Site;
 import fr.cgs.cgs_back.entity.User;
 import fr.cgs.cgs_back.repository.UserRepository;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -38,6 +41,12 @@ public class UserService {
         }
         return user;
     }
+
+    public User findById(int id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        return optionalUser.orElseThrow(()->new EntityNotFoundException("User not found with id " + id));
+    }
+
 
     public List<User> findAll(){
        List<User> result = userRepository.findAll();
