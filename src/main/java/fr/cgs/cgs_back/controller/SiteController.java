@@ -1,13 +1,16 @@
 package fr.cgs.cgs_back.controller;
 
+import fr.cgs.cgs_back.dto.SiteDto;
 import fr.cgs.cgs_back.entity.Classroom;
 import fr.cgs.cgs_back.entity.Site;
+import fr.cgs.cgs_back.mapper.MapStructMapper;
 import fr.cgs.cgs_back.service.ClassroomService;
 import fr.cgs.cgs_back.service.SiteService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +25,8 @@ public class SiteController {
     private SiteService siteService;
     @Autowired
     private ClassroomService classroomService;
+    @Autowired
+    private MapStructMapper mapper;
 
     @GetMapping
     public List<Site> getAllSites() {
@@ -39,21 +44,30 @@ public class SiteController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Site> createSite(@RequestBody Site site) {
-        Site savedSite = siteService.saveSite(site);
-        return ResponseEntity.ok(savedSite);
+    public ResponseEntity<Void> createSite(@RequestBody SiteDto siteDto) {
+        siteService.saveSite(mapper.siteDtoToSite(siteDto));
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Site> updateSite(@PathVariable int id,@RequestBody Site updatedSite) {
+    public ResponseEntity<Site> updateSite(@PathVariable int id,@RequestBody SiteDto updatedSite) {
         try{
             Site site = siteService.getSiteById(id);
-            site.setName(updatedSite.getName());
-            site.setCity(updatedSite.getCity());
-            site.setAdress(updatedSite.getAdress());
-            site.setDescription(updatedSite.getDescription());
-            Site savedSite = siteService.saveSite(site);
+
+            SiteDto newSite = mapper.siteToSiteDto(site);
+
+            newSite.setName(updatedSite.getName());
+            newSite.setCity(updatedSite.getCity());
+            newSite.setAdress(updatedSite.getAdress());
+            newSite.setDescription(updatedSite.getDescription());
+
+            Site mappedSite = mapper.siteDtoToSite(newSite);
+
+            mappedSite.setId(id);
+
+            Site savedSite = siteService.saveSite(mappedSite);
+
             return ResponseEntity.ok(savedSite);
         } catch(EntityNotFoundException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

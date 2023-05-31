@@ -1,10 +1,12 @@
 package fr.cgs.cgs_back.entity;
 
 import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Entity
+@NoArgsConstructor
 @Table(name = "reservation")
 public class Reservation {
 
@@ -25,35 +27,19 @@ public class Reservation {
     @Column(name = "classroom_id")
     private int classroom_id;
 
-    @ManyToOne
-    @JoinColumn(name = "classroom_id", updatable = false, insertable = false)
-    private Classroom classroom;
-
-    public void setClassroom_id(int classroom_id) {
-        this.classroom_id = classroom_id;
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
-
-    public int getClassroom_id() {
-        return classroom_id;
-    }
-
-    public int getUser_id() {
-        return user_id;
-    }
-
     @Column(name = "user_id")
     private int user_id;
+
+    @Column(name = "reservation_type")
+    private int type;
 
     @ManyToOne
     @JoinColumn(name = "user_id", updatable = false, insertable = false)
     private User user;
 
-    @Column(name = "reservation_type")
-    private int type;
+    @ManyToOne
+    @JoinColumn(name = "classroom_id", updatable = false, insertable = false)
+    private Classroom classroom;
 
     public int getId() {
         return id;
@@ -87,12 +73,28 @@ public class Reservation {
         this.endedAt = endedAt;
     }
 
-    public Classroom getClassroom() {
-        return classroom;
+    public int getClassroom_id() {
+        return classroom_id;
     }
 
-    public void setClassroom(Classroom classroom) {
-        this.classroom = classroom;
+    public void setClassroom_id(int classroom_id) {
+        this.classroom_id = classroom_id;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public User getUser() {
@@ -103,11 +105,11 @@ public class Reservation {
         this.user = user;
     }
 
-    public int getType() {
-        return type;
+    public Classroom getClassroom() {
+        return classroom;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setClassroom(Classroom classroom) {
+        this.classroom = classroom;
     }
 }
