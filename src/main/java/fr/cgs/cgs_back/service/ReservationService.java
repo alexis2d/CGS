@@ -17,14 +17,15 @@ public class ReservationService {
 
     public Reservation findById(int id){
         Optional<Reservation> optionnalReservation = reservationRepository.findById(id);
-        return optionnalReservation.orElseThrow(()->new EntityNotFoundException("Reservation not found with id " + id));
+        optionnalReservation.orElseThrow(()->new EntityNotFoundException("Reservation not found with id " + id));
+        return optionnalReservation.get();
     }
 
     public List<Reservation> getAllReservation() {
         return reservationRepository.findAll();
     }
 
-    public Iterable<Reservation> getProductsByName(String name) {
+    public List<Reservation> getProductsByName(String name) {
         return reservationRepository.findByName(name);
     }
 

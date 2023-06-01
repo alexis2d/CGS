@@ -5,15 +5,13 @@ import fr.cgs.cgs_back.service.ReservationService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("api/reservation")
+@RequestMapping("/api/reservation")
 @CrossOrigin(origins = "http://localhost:3000")
 public class ReservationController {
 
@@ -40,7 +38,7 @@ public class ReservationController {
         return reservationService.findReservationByClassroomId(classroomId);
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<Reservation> createReservation(@RequestBody Reservation reservation){
         Reservation saveReservation = reservationService.saveReservation(reservation);
         return ResponseEntity.ok(saveReservation);
@@ -63,8 +61,6 @@ public class ReservationController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
-
-
 
     @DeleteMapping("/{id}")
     public void deleteReservation(@PathVariable int id) {
