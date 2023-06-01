@@ -3,6 +3,7 @@ package fr.cgs.cgs_back.controller;
 import fr.cgs.cgs_back.entity.Promotion;
 import fr.cgs.cgs_back.service.PromotionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,12 +31,18 @@ public class PromotionController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Promotion> updatePromotion(@PathVariable int id, @RequestBody Promotion updatedPromotion) {
-        Promotion promotion = promotionService.getPromotionById(id);
-        promotion.setName(updatedPromotion.getName());
-        promotion.setStartedAt(updatedPromotion.getStartedAt());
-        promotion.setClassroom(updatedPromotion.getClassroom());
-        Promotion savedPromotion = promotionService.insertPromotion(promotion);
-        return ResponseEntity.ok(savedPromotion);
+        try {
+            Promotion promotion = promotionService.getPromotionById(id);
+            promotion.setName(updatedPromotion.getName());
+            promotion.setVolume(updatedPromotion.getVolume());
+            promotion.setStartedAt(updatedPromotion.getStartedAt());
+            promotion.setEndedAt(updatedPromotion.getEndedAt());
+            promotion.setClassroom_id(updatedPromotion.getClassroom_id());
+            promotion.setUser_id(updatedPromotion.getUser_id());
+            return ResponseEntity.ok(updatedPromotion);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
