@@ -19,6 +19,8 @@ dependencies {
 	implementation 'org.flywaydb:flyway-mysql'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'io.rest-assured:rest-assured:5.3.0'
+	testImplementation 'io.rest-assured:spring-mock-mvc:5.3.0'
 }
 
 tasks.named('test') {
