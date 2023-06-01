@@ -1,5 +1,7 @@
 package fr.cgs.cgs_back.dto;
 
+import fr.cgs.cgs_back.entity.User;
+
 import java.util.Date;
 
 public class PromotionDto {
@@ -9,9 +11,9 @@ public class PromotionDto {
     private Date startedAt;
     private Date endedAt;
     private ClassroomDto classroom;
-    private UserDto user;
+    private User user;
 
-    public PromotionDto(int id, String name, int volume, Date startedAt, Date endedAt, ClassroomDto classroom, UserDto user) {
+    public PromotionDto(int id, String name, int volume, Date startedAt, Date endedAt, ClassroomDto classroom, User user) {
         this.id = id;
         this.name = name;
         this.volume = volume;

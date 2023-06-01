@@ -1,5 +1,7 @@
 package fr.cgs.cgs_back.dto;
 
+import fr.cgs.cgs_back.entity.User;
+
 import java.util.Date;
 
 public class ReservationDto {
@@ -8,10 +10,10 @@ public class ReservationDto {
     private Date startedAt;
     private Date endedAt;
     private ClassroomDto classroom;
-    private UserDto user;
+    private User user;
     private int type;
 
-    public ReservationDto(int id, String name, Date startedAt, Date endedAt, ClassroomDto classroom, UserDto user, int type) {
+    public ReservationDto(int id, String name, Date startedAt, Date endedAt, ClassroomDto classroom, User user, int type) {
         this.id = id;
         this.name = name;
         this.startedAt = startedAt;

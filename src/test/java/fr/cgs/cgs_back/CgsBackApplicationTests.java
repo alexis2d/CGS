@@ -1,14 +1,8 @@
 package fr.cgs.cgs_back;
 
-import fr.cgs.cgs_back.dto.UserDto;
-import fr.cgs.cgs_back.entity.User;
-import fr.cgs.cgs_back.service.UserService;
+//import fr.cgs.cgs_back.dto.UserDto;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.Arrays;
-import java.util.List;
 
 @SpringBootTest
 class CgsBackApplicationTests {
@@ -17,24 +11,25 @@ class CgsBackApplicationTests {
 	void contextLoads() {
 	}
 
-	@Autowired
-	private UserService userService;
+	/* Plutôt Mocker les Services utilisés pour effectuer les tests pour ne pas créer une instance réelle de la classe appelée */
+//	@Autowired
+//	private UserService userService;
 
-	@Test
-	void testUserExist(){
-		String testedEmail = "grigmand0@theatlantic.com";
-		User result = userService.findByEmail(testedEmail);
-		UserDto user = new UserDto(result);
-		assert user.getEmail().equals(testedEmail);
-	}
-
-	@Test
-	void testLogin() {
-		String testedEmail = "grigmand0@theatlantic.com";
-		String testedPassword = "al9BAGMDXW5";
-		User result = userService.findByEmailAndPassword(testedEmail, testedPassword);
-		UserDto user = new UserDto(result);
-		assert user.getEmail().equals(testedEmail);
-	}
+//	@Test
+//	void testUserExist(){
+//		String testedEmail = "grigmand0@theatlantic.com";
+//		User result = userService.findByEmail(testedEmail);
+//		UserDto user = new UserDto(result);
+//		assert user.getEmail().equals(testedEmail);
+//	}
+//
+//	@Test
+//	void testLogin() {
+//		String testedEmail = "grigmand0@theatlantic.com"; // On vas éviter de faire des tests avec des données existantes en Base.
+//		String testedPassword = "al9BAGMDXW5";
+//		User result = userService.findByEmailAndPassword(testedEmail, testedPassword);
+//		UserDto user = new UserDto(result);
+//		assert user.getEmail().equals(testedEmail);
+//	}
 
 }
